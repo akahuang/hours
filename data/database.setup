@@ -1,0 +1,4 @@
+CREATE TABLE "menu" ( id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL, name Varchar(64), price integer, group_id integer);
+CREATE TABLE "group" ( id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL, name Varchar(64));
+CREATE TABLE "transaction" ( id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL, transaction Varchar(512), price integer, timestamp timestamp DEFAULT CURRENT_TIMESTAMP, status integer);
+
