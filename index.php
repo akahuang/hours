@@ -10,6 +10,15 @@ if (isset($_POST['op'])) {
         case 'delOrder':
             delOrder($_POST['id']);
             break;
+        case 'order':
+            order();
+            break;
+        case 'done':
+            done($_POST['id']);
+            break;
+        case 'paid':
+            paid($_POST['id']);
+            break;
     }
 }
 

@@ -1,7 +1,8 @@
 <?php
 if (file_exists('hours.db')) unlink('hours.db');
 include "../SQLiteMgr.php";
-$db = new SQLiteMgr('hours.db');
+$dbPath = 'hours.db';
+$db = new SQLiteMgr($dbPath);
 
 $setupScript = fopen('database.setup', 'r');
 if ($setupScript == null) {
@@ -17,7 +18,7 @@ if ($setupScript != null) {
     fclose($setupScript);
 }
 
-$tableNames = array('menu', 'group', 'transaction');
+$tableNames = array('menu', 'group');
 foreach ($tableNames as $tableName) {
     $csvFile = fopen("$tableName.csv", 'r');
     if ($csvFile == null) {
@@ -39,6 +40,6 @@ foreach ($tableNames as $tableName) {
     fclose($csvFile);
 }
 
-
+chmod($dbPath, 0666);
 
 ?>

@@ -1,10 +1,10 @@
 <?php
 
 class SQLiteMgr {
-    private $mDatabase = NULL;
+    private $db = NULL;
 
     function __construct($dbFilePath) {
-        $this->mDatabase = new PDO("sqlite:$dbFilePath");
+        $this->db = new PDO("sqlite:$dbFilePath");
     }
 
     function __destruct() {
@@ -12,35 +12,33 @@ class SQLiteMgr {
     }
 
     public function close() {
-        $this->mDatabase = NULL;
+        $this->db = NULL;
     }
 
     public function exec($query) {
-        $this->mDatabase->exec($query);
+        $this->db->exec($query);
     }
 
     public function insert($table, $elements) {
         $keyStr = "";
         $valueStr = "";
         foreach ($elements as $key => $value) {
-            $keyStr .= "`$key`,";
+            $keyStr .= "$key,";
             $valueStr .= "'$value',";
         }
         $this->removeLast($keyStr);
         $this->removeLast($valueStr);
-        $query = "INSERT INTO `$table` ($keyStr) VALUES ($valueStr)";
+        $query = "INSERT INTO $table($keyStr) VALUES ($valueStr)";
         $this->debug($query);
-        $this->mDatabase->exec($query);
+        $this->db->exec($query);
     }
 
-    public function select($table, $condition = '', $column = '*') {
-        if ($condition == '') {
-            $query = "SELECT $column FROM `$table`";
-        } else {
-            $query = "SELECT $column FROM `$table` WHERE $condition";
-        }
+    public function select($table, $condition = '', $others = '') {
+        $query = "SELECT * FROM '$table'";
+        if ($condition != '') $query .= " WHERE $condition";
+        if ($others != '') $query .= " $others";
         $this->debug($query);
-        $results = $this->mDatabase->query($query);
+        $results = $this->db->query($query);
         if ($results == null) return null;
 
         $ret = array();
@@ -53,7 +51,7 @@ class SQLiteMgr {
     public function update($table, $set, $condition = '') {
         $query = "UPDATE $table SET $set WHERE $condition";
         $this->debug($query);
-        $this->mResult = $this->mDatabase->query($query);
+        $this->db->exec($query);
     }
 
     private static function removeLast(&$str) {
@@ -61,13 +59,7 @@ class SQLiteMgr {
     }
 
     private static function debug($str) {
-//        session_start();
-//        if (isset($_GET['debug'])) {
-//            $_SESSION['debug'] = $_GET['debug'];
-//        }
-//        if (isset($_SESSION['debug']) && $_SESSION['debug'] == 'on') {
-          echo "Debug: $str<br>\n";
-//        }
+        if (false) echo "Debug: $str<br>\n";
     }
 }
 ?>
