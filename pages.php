@@ -10,10 +10,27 @@ function menuPage() {
             $group = $menu['group_id'];
             $ret .= "<h2>{$_SESSION['group'][$group]['name']}</h2>";
         }
-        $ret .= makeButton($menu['id'], $menu['name'], "addOrder");
+        $isOrder = isset($_SESSION['order'][$menu['id']]);
+        $name = findName($menu['id']);
+        $ret .= makeButton($menu['id'], $name, "addOrder", $isOrder);
     }
-    $orderList = makeOrderList();
-    return makePage($ret, $orderList);
+    return <<<EOD
+<div id="content">
+    <div id="menuList">
+        $ret
+    <hr><center>
+        <form method="POST" action="index.php?page=list">
+            <input type="hidden" name="op" value="order">
+            <input type="submit" value="點菜" />
+        </form>
+        <form method="POST">
+            <input type="hidden" name="op" value="cancelOrder">
+            <input type="submit" value="重置" />
+        </form></center>
+    </div>
+</div>
+EOD;
+
 }
 
 function listPage() {
@@ -31,16 +48,13 @@ function listPage() {
         $str = genName($item['trade']);
         $rightContent .= makeButton($item['id'], $str, 'paid');
     }
-    return makePage($leftContent, $rightContent);
-}
 
-function makePage($leftContent, $rightContent) {
     return <<<EOD
 <div id="content">
-    <div id="menuList">
+    <div id="leftList">
         $leftContent
     </div>
-    <div id="orderList">
+    <div id="rightList">
         $rightContent
     </div>
 </div>
@@ -65,14 +79,22 @@ function makeOrderList() {
 EOD;
 }
 
-function makeButton($id, $name, $op) {
+function makeButton($id, $name, $op, $isOrder = false) {
+    $orderStr = $isOrder ? 'class=order' : '';
     return <<<EOD
 <form method="POST">
     <input type=hidden name="op" value="$op">
     <input type=hidden name="id" value="$id">
-    <input type=submit value="$name">
+    <input $orderStr type=submit value="$name">
 </form>
 EOD;
+}
+
+function findName($id) {
+    if (!isset($_SESSION['order'][$id])) return $_SESSION['menu'][$id]['name'];
+
+    $num = $_SESSION['order'][$id];
+    return "{$_SESSION['menu'][$id]['name']}*$num";
 }
 
 function genName($trade) {
@@ -106,6 +128,8 @@ function delOrder($id) {
 }
 
 function order() {
+    if (!isset($_SESSION['order'])) return;
+
     $orderList = arrEncode($_SESSION['order']);
     $price = 0;
     foreach ($_SESSION['order'] as $id => $num) {
@@ -115,6 +139,10 @@ function order() {
     $SqlMgr = new SQLiteMgr('data/hours.db');
     $query = array('trade'=>$orderList, 'status'=>0, 'price'=>$price);
     $SqlMgr->insert('trade', $query);
+    unset($_SESSION['order']);
+}
+
+function cancelOrder() {
     unset($_SESSION['order']);
 }
 

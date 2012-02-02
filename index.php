@@ -13,6 +13,9 @@ if (isset($_POST['op'])) {
         case 'order':
             order();
             break;
+        case 'cancelOrder':
+            cancelOrder();
+            break;
         case 'done':
             done($_POST['id']);
             break;
@@ -40,6 +43,7 @@ switch($_SESSION['page']) {
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="user-scalable=no, width=device-width" />
 
   <title>Hours Menu</title>
   <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
@@ -49,7 +53,7 @@ switch($_SESSION['page']) {
     <div id=title>Hours Menu</div>
     <div id=menu>
         <a href="?page=menu">Menu</a>
-        <a href="?page=List">List</a>
+        <a href="?page=list">List</a>
     </div>
 </div>
 <?php echo $content; ?>

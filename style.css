@@ -19,8 +19,8 @@ li { list-style-type: none;}
     background: #BBD9EE; 
     font: bold 1.3em Arial, Arial, Sans-Serif
 }
-#title{text-align: left}
-#menu {text-align: right; margin: 0 10px}
+#title{text-align: center}
+#menu {text-align: left; margin: 0 10px}
 
 #content {
     margin: 0;
@@ -28,13 +28,17 @@ li { list-style-type: none;}
     background: #fff;
 }
 #menuList {
-    float: left;
-    width: 60%;
     background: #eee;
 }
-#orderList {
+
+#leftList {
+    float: left;
+    width: 48%;
+    background : #FFF6BF;
+}
+#rightList {
     float: right;
-    width: 35%;
+    width: 48%;
     background : #FFF6BF;
 }
 
@@ -48,10 +52,11 @@ input {
     font-family: Helvetica ;
     font-weight: bold ;
     font-size: 1em;
-    height: 40px;
-    width: 80px;
-    border: 1px solid black ;
-    margin-top: 10px ;
-    margin-bottom: 10px ;
-    background-color: white ;
+    height: 30px;
+    width: 31%;
+    margin: 2% 0;
+    padding: 0;
+    background-color: #ffffff;
 }
+
+input.order { background-color: #ee00ee}
