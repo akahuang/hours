@@ -22,7 +22,7 @@ if (isset($_POST['op'])) {
     }
 }
 
-if (isset($_POST['page'])) $_SESSION['page'] = $_POST['page'];
+if (isset($_GET['page'])) $_SESSION['page'] = $_GET['page'];
 if (!isset($_SESSION['page'])) $_SESSION['page'] = 'menu';
 switch($_SESSION['page']) {
     case 'menu':
@@ -39,12 +39,20 @@ switch($_SESSION['page']) {
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
   <title>Hours Menu</title>
   <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 </head>
 <body>
+<div id=header>
+    <div id=title>Hours Menu</div>
+    <div id=menu>
+        <a href="?page=menu">Menu</a>
+        <a href="?page=List">List</a>
+    </div>
+</div>
 <?php echo $content; ?>
-
 </body>
 </html>
 

@@ -28,7 +28,7 @@ class SQLiteMgr {
         }
         $this->removeLast($keyStr);
         $this->removeLast($valueStr);
-        $query = "INSERT INTO $table($keyStr) VALUES ($valueStr)";
+        $query = "INSERT INTO '$table'($keyStr) VALUES ($valueStr)";
         $this->debug($query);
         $this->db->exec($query);
     }

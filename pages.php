@@ -36,19 +36,11 @@ function listPage() {
 
 function makePage($leftContent, $rightContent) {
     return <<<EOD
-<form method="POST">
-    <input type="hidden" name="page" value="menu">
-    <input type="submit" value="Menu">
-</form>
-<form method="POST">
-    <input type="hidden" name="page" value="list">
-    <input type="submit" value="List">
-</form>
 <div id="content">
-    <div id="left">
+    <div id="menuList">
         $leftContent
     </div>
-    <div id="right">
+    <div id="orderList">
         $rightContent
     </div>
 </div>
@@ -96,7 +88,7 @@ function genName($trade) {
 }
 
 function loadMenu() {
-    if (isset($_SESSION['menu'])) return;
+    //if (isset($_SESSION['menu'])) return;
 
     $SqlMgr = new SQLiteMgr('data/hours.db');
     $_SESSION['group'] = $SqlMgr->select('group');
