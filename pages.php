@@ -8,13 +8,20 @@ function menuPage() {
         $transaction = '';
     }
 
-    $ret = '';
+    // Add favorite group first.
+    $ret = '<center><h2>常點清單</h2></center>';
+    foreach ($_SESSION['favorite'] as $menu) {
+        $id = $menu['menu_id'];
+        $isOrder = isset($_SESSION['order'][$id]);
+        $ret .= makeButton($id, "addOrder", $isOrder);
+    }
+
     foreach ($_SESSION['group'] as $group) {
         $ret .= "<center><h2>{$group['name']}</h2></center>";
         foreach ($_SESSION['menu'] as $menu) {
             if ($menu['group_id'] == $group['id']) {
                 $isOrder = isset($_SESSION['order'][$menu['id']]);
-                $ret .= makeButton($menu['id'], $menu['name'], "addOrder", $isOrder);
+                $ret .= makeButton($menu['id'], "addOrder", $isOrder);
             }
         }
     }
@@ -87,14 +94,18 @@ function todayPage() {
     return $ret;
 }
 
+function favoritePage() {
+}
+
 function makeLink($id, $name, $op) {
     return <<<EOD
     <li><a href="?page=list&op=$op&id=$id">$name</a></li>
 EOD;
 }
 
-function makeButton($id, $name, $op, $isOrder = false) {
+function makeButton($id, $op, $isOrder = false) {
     $orderStr = $isOrder ? 'class=order' : '';
+    $name = $_SESSION['menu'][$id]['name'];
     return <<<EOD
 <form method="POST">
     <input type=hidden name="op" value="$op">

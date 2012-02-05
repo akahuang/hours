@@ -12,11 +12,12 @@ function genName($trade) {
 }
 
 function loadMenu() {
-    if (isset($_SESSION['menu'])) return;
+    //if (isset($_SESSION['menu'])) return;
 
     global $SqlMgr;
     $_SESSION['group'] = $SqlMgr->select('group');
     $_SESSION['menu'] = $SqlMgr->select('menu');
+    $_SESSION['favorite'] = $SqlMgr->select('favorite');
 }
 
 function arrEncode($arr) {

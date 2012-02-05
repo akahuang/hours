@@ -18,7 +18,7 @@ if ($setupScript != null) {
     fclose($setupScript);
 }
 
-$tableNames = array('menu', 'group');
+$tableNames = array('menu', 'group', 'favorite');
 foreach ($tableNames as $tableName) {
     $csvFile = fopen("$tableName.csv", 'r');
     if ($csvFile == null) {
