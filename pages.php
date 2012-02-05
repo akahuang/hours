@@ -2,14 +2,19 @@
 include "utils.php";
 
 function menuPage() {
+    if (isset($_SESSION['order'])) {
+        $transaction = genName(arrEncode($_SESSION['order']));
+    } else {
+        $transaction = '';
+    }
+
     $ret = '';
     foreach ($_SESSION['group'] as $group) {
-        $ret .= "<h2>{$group['name']}</h2>";
+        $ret .= "<center><h2>{$group['name']}</h2></center>";
         foreach ($_SESSION['menu'] as $menu) {
             if ($menu['group_id'] == $group['id']) {
                 $isOrder = isset($_SESSION['order'][$menu['id']]);
-                $name = findName($menu['id']);
-                $ret .= makeButton($menu['id'], $name, "addOrder", $isOrder);
+                $ret .= makeButton($menu['id'], $menu['name'], "addOrder", $isOrder);
             }
         }
     }
@@ -17,14 +22,17 @@ function menuPage() {
     return <<<EOD
 <div id="content">
     <div id="menuList">
-        <center><form method="POST" action="index.php?page=list">
+        $transaction
+        <center>
+        <form method="POST" action="index.php?page=list">
             <input type="hidden" name="op" value="order">
             <input type="submit" value="點菜" />
         </form>
         <form method="POST">
             <input type="hidden" name="op" value="cancelOrder">
             <input type="submit" value="重置" />
-        </form></center>
+        </form>
+        </center>
         <hr>
         $ret
     </div>
@@ -52,10 +60,14 @@ function listPage() {
     return <<<EOD
 <div id="content">
     <div id="leftList">
+        <ul>
         $leftContent
+        </ul>
     </div>
     <div id="rightList">
+        <ul>
         $rightContent
+        </ul>
     </div>
 </div>
 EOD;
@@ -77,7 +89,7 @@ function todayPage() {
 
 function makeLink($id, $name, $op) {
     return <<<EOD
-    <li><a href="?page=list&op=$op&id=$id">$name</a>
+    <li><a href="?page=list&op=$op&id=$id">$name</a></li>
 EOD;
 }
 

@@ -1,20 +1,13 @@
 <?php
-function findName($id) {
-    if (!isset($_SESSION['order'][$id])) return $_SESSION['menu'][$id]['name'];
-
-    $num = $_SESSION['order'][$id];
-    return "{$_SESSION['menu'][$id]['name']}*$num";
-}
-
 function genName($trade) {
     $arr = arrDecode($trade);
     $ret = '';
     $price = 0;
     foreach ($arr as $id => $num) {
-        $ret .= "{$_SESSION['menu'][$id]['name']}*$num ";
+        $ret .= "{$_SESSION['menu'][$id]['name']}*$num<br>";
         $price += $_SESSION['menu'][$id]['price'] * $num;
     }
-    $ret .= "共 $price 元";
+    $ret .= "&nbsp;&nbsp;&nbsp;&nbsp;共 $price 元";
     return $ret;
 }
 
@@ -43,5 +36,4 @@ function arrDecode($str) {
     }
     return $ret;
 }
-
 ?>

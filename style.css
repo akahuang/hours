@@ -11,8 +11,8 @@ body {
 a { color: #0066B3; background: inherit; text-decoration: none;}
 h1 { font: bold 2.1em Arial, Arial, Sans-Serif; color: #036DA7 }
 h2 { font: bold 1.3em Arial, Arial, Sans-Serif; padding: 0; margin:0; }
-ul {  padding: 0; margin: 0;}
-li { list-style-type: none;}
+ul { padding: 0; margin: 0;}
+li { list-style-type: none; margin: 5px 0; padding: 2px 5px; background:#ccc}
 
 #header {
     width: 100%;
@@ -50,8 +50,7 @@ form {
 
 input {
     font-family: Helvetica ;
-    font-weight: bold ;
-    font-size: 1em;
+    font-size: 0.8em;
     height: 30px;
     width: 31%;
     margin: 2% 0;
