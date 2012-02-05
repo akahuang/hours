@@ -1,6 +1,11 @@
 <?php
 include "pages.php";
+include "SQLiteMgr.php";
+include "operation.php";
+
 session_start();
+$SqlMgr = new SQLiteMgr('data/hours.db');
+loadMenu();
 
 if (isset($_REQUEST['op'])) {
     switch ($_REQUEST['op']) {
