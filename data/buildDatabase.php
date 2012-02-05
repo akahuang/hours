@@ -29,7 +29,6 @@ foreach ($tableNames as $tableName) {
     echo "import $tableName.csv\n";
     $title = fgetcsv($csvFile, 100);
     while ($data = fgetcsv($csvFile, 100)) {
-        print_r($data);
         if (count($data) != count($title)) continue;
 
         $ret = array();
@@ -42,5 +41,6 @@ foreach ($tableNames as $tableName) {
 }
 
 chmod($dbPath, 0666);
+chmod('./', 0777);
 
 ?>
