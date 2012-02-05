@@ -17,9 +17,7 @@ function menuPage() {
     return <<<EOD
 <div id="content">
     <div id="menuList">
-        $ret
-    <hr><center>
-        <form method="POST" action="index.php?page=list">
+        <center><form method="POST" action="index.php?page=list">
             <input type="hidden" name="op" value="order">
             <input type="submit" value="點菜" />
         </form>
@@ -27,6 +25,8 @@ function menuPage() {
             <input type="hidden" name="op" value="cancelOrder">
             <input type="submit" value="重置" />
         </form></center>
+        <hr>
+        $ret
     </div>
 </div>
 EOD;
@@ -42,11 +42,11 @@ function listPage() {
     $rightContent = '<h2>ToPaid List</h2>';
     foreach ($todoList as $item) {
         $str = genName($item['trade']);
-        $leftContent .= makeButton($item['id'], $str, 'done');
+        $leftContent .= makeLink($item['id'], $str, 'done');
     }
     foreach ($topaidList as $item) {
         $str = genName($item['trade']);
-        $rightContent .= makeButton($item['id'], $str, 'paid');
+        $rightContent .= makeLink($item['id'], $str, 'paid');
     }
 
     return <<<EOD
@@ -61,21 +61,9 @@ function listPage() {
 EOD;
 }
 
-function makeOrderList() {
-    if (!isset($_SESSION['order'])) return null;
-
-    $ret = '';
-    foreach ($_SESSION['order'] as $id => $value) {
-        $ret .= makeButton($id, $_SESSION['menu'][$id]['name'] . "*$value", 'delOrder');
-    }
+function makeLink($id, $name, $op) {
     return <<<EOD
-        <h2>Order List</h2>
-        $ret
-        <form method="POST">
-            <input type="hidden" name="op" value="order">
-            <input type="hidden" name="page" value="list">
-            <center><input type="submit" value="Order!" /><br></center>
-        </form>
+    <li><a href="?page=list&op=$op&id=$id">$name</a>
 EOD;
 }
 

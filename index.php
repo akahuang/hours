@@ -2,8 +2,8 @@
 include "pages.php";
 session_start();
 
-if (isset($_POST['op'])) {
-    switch ($_POST['op']) {
+if (isset($_REQUEST['op'])) {
+    switch ($_REQUEST['op']) {
         case 'addOrder':
             addOrder($_POST['id']);
             break;
@@ -17,10 +17,10 @@ if (isset($_POST['op'])) {
             cancelOrder();
             break;
         case 'done':
-            done($_POST['id']);
+            done($_REQUEST['id']);
             break;
         case 'paid':
-            paid($_POST['id']);
+            paid($_REQUEST['id']);
             break;
     }
 }
