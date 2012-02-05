@@ -11,7 +11,7 @@ function menuPage() {
     // Add favorite group first.
     $ret = '<center><h2>常點清單</h2></center>';
     foreach ($_SESSION['favorite'] as $menu) {
-        $id = $menu['menu_id'];
+        $id = $menu['id'];
         $isOrder = isset($_SESSION['order'][$id]);
         $ret .= makeButton($id, "addOrder", $isOrder);
     }
@@ -95,6 +95,28 @@ function todayPage() {
 }
 
 function favoritePage() {
+    $ret = '';
+    foreach ($_SESSION['group'] as $group) {
+        $ret .= "<center><h2>{$group['name']}</h2></center>";
+        foreach ($_SESSION['menu'] as $menu) {
+            if ($menu['group_id'] == $group['id']) {
+                $id = $menu['id'];
+                $isOrder = isset($_SESSION['favorite'][$id]);
+                $op = ($isOrder) ? 'delFavorite' : 'addFavorite';
+                $ret .= makeButton($id, $op, $isOrder);
+            }
+        }
+    }
+
+    return <<<EOD
+<div id="content">
+    <div id="menuList">
+        $ret
+    </div>
+</div>
+EOD;
+
+
 }
 
 function makeLink($id, $name, $op) {

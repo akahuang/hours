@@ -49,7 +49,13 @@ class SQLiteMgr {
     }
 
     public function update($table, $set, $condition = '') {
-        $query = "UPDATE $table SET $set WHERE $condition";
+        $query = "UPDATE '$table' SET $set WHERE $condition";
+        $this->debug($query);
+        $this->db->exec($query);
+    }
+
+    public function delete($table, $condition) {
+        $query = "DELETE FROM '$table' WHERE $condition";
         $this->debug($query);
         $this->db->exec($query);
     }

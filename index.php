@@ -27,6 +27,12 @@ if (isset($_REQUEST['op'])) {
         case 'paid':
             paid($_REQUEST['id']);
             break;
+        case 'addFavorite':
+            addFavorite($_POST['id']);
+            break;
+        case 'delFavorite':
+            delFavorite($_POST['id']);
+            break;
     }
 }
 
@@ -41,6 +47,9 @@ switch($_SESSION['page']) {
         break;
     case 'today':
         $content = todayPage();
+        break;
+    case 'favorite':
+        $content = favoritePage();
         break;
 }
 
@@ -63,6 +72,7 @@ switch($_SESSION['page']) {
         <a href="?page=menu">菜單</a>
         <a href="?page=list">列表</a>
         <a href="?page=today">本日交易</a>
+        <a href="?page=favorite">常用清單</a>
     </div>
 </div>
 <?php echo $content; ?>

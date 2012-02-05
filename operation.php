@@ -37,4 +37,16 @@ function paid($id) {
     global $SqlMgr;
     $SqlMgr->update('trade', 'status=2', "id=$id");
 }
+
+function addFavorite($id) {
+    global $SqlMgr;
+    $SqlMgr->insert('favorite', array('id'=>$id));
+    loadMenu(true);
+}
+
+function delFavorite($id) {
+    global $SqlMgr;
+    $SqlMgr->delete('favorite', "id=$id");
+    loadMenu(true);
+}
 ?>

@@ -11,8 +11,8 @@ function genName($trade) {
     return $ret;
 }
 
-function loadMenu() {
-    //if (isset($_SESSION['menu'])) return;
+function loadMenu($force = false) {
+    if (isset($_SESSION['menu']) && !$force) return;
 
     global $SqlMgr;
     $_SESSION['group'] = $SqlMgr->select('group');
