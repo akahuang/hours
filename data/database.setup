@@ -1,4 +1,4 @@
 CREATE TABLE 'menu' ( id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL, name Varchar(64), price integer, group_id integer);
-CREATE TABLE 'trade' ( id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL, trade Varchar(128), price integer, status integer);
+CREATE TABLE 'trade' ( id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL, trade Varchar(128), price integer, status integer, time timestamp DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE 'group' ( id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL, name Varchar(64));
 

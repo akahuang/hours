@@ -34,6 +34,7 @@ EOD;
 }
 
 function listPage() {
+    loadMenu();
     $SqlMgr = new SQLiteMgr('data/hours.db');
     $todoList = $SqlMgr->select('trade', 'status=0');
     $topaidList = $SqlMgr->select('trade', 'status=1');
@@ -61,6 +62,20 @@ function listPage() {
 EOD;
 }
 
+function todayPage() {
+    loadMenu();
+    $SqlMgr = new SQLiteMgr('data/hours.db');
+    $trades = $SqlMgr->select('trade', 'status=2 and date(time) = date("now")');
+
+    $ret = '<table border="1">';
+    $ret .= '<tr><td>時間</td><td>交易</td></tr>';
+    foreach($trades as $trade) {
+        $transaction = genName($trade['trade']);
+        $ret .= "<tr><td>{$trade['time']}</td><td>$transaction</td></tr>";
+    }
+    $ret .= '</table>';
+    return $ret;
+}
 function makeLink($id, $name, $op) {
     return <<<EOD
     <li><a href="?page=list&op=$op&id=$id">$name</a>

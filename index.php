@@ -34,6 +34,9 @@ switch($_SESSION['page']) {
     case 'list':
         $content = listPage();
         break;
+    case 'today':
+        $content = todayPage();
+        break;
 }
 
 ?>
@@ -52,8 +55,9 @@ switch($_SESSION['page']) {
 <div id=header>
     <div id=title>Hours Menu</div>
     <div id=menu>
-        <a href="?page=menu">Menu</a>
-        <a href="?page=list">List</a>
+        <a href="?page=menu">菜單</a>
+        <a href="?page=list">列表</a>
+        <a href="?page=today">本日交易</a>
     </div>
 </div>
 <?php echo $content; ?>
