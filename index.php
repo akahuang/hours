@@ -64,6 +64,8 @@ switch($_SESSION['page']) {
 
   <title>Hours Menu</title>
   <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+  <link rel="apple-touch-startup-image" href="image/hours.png" />
+  <link rel="apple-touch-icon" href="image/icon.png" />
 </head>
 <body>
 <div id=header>
