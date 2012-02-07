@@ -2,26 +2,19 @@
 include "utils.php";
 
 function menuPage() {
-    if (isset($_SESSION['order'])) {
-        $transaction = genName(arrEncode($_SESSION['order']));
-    } else {
-        $transaction = '';
-    }
-
     // Add favorite group first.
-    $ret = '<center><h2>常點清單</h2></center>';
+    $ret = "<center><h2>常點清單</h2></center>\n";
     foreach ($_SESSION['favorite'] as $menu) {
         $id = $menu['id'];
-        $isOrder = isset($_SESSION['order'][$id]);
-        $ret .= makeButton($id, "addOrder", $isOrder);
+        $ret .= makeNewButton($id);
     }
 
     foreach ($_SESSION['group'] as $group) {
-        $ret .= "<center><h2>{$group['name']}</h2></center>";
+        $ret .= "<center><h2>{$group['name']}</h2></center>\n";
         foreach ($_SESSION['menu'] as $menu) {
+            if (isset($_SESSION['favorite'][$menu['id']])) continue;
             if ($menu['group_id'] == $group['id']) {
-                $isOrder = isset($_SESSION['order'][$menu['id']]);
-                $ret .= makeButton($menu['id'], "addOrder", $isOrder);
+                $ret .= makeNewButton($menu['id']);
             }
         }
     }
@@ -29,16 +22,14 @@ function menuPage() {
     return <<<EOD
 <div id="content">
     <div id="menuList">
-        $transaction
+        <p id="currentOrder"></p>
         <center>
-        <form method="POST" action="index.php?page=list">
+        <form id="sendOrder" method="POST" action="index.php?page=list">
             <input type="hidden" name="op" value="order">
+            <input type="hidden" name="orderList">
             <input type="submit" value="點菜" />
         </form>
-        <form method="POST">
-            <input type="hidden" name="op" value="cancelOrder">
-            <input type="submit" value="重置" />
-        </form>
+        <input type="button" onclick=delOrder() value="重置">
         </center>
         <hr>
         $ret
@@ -135,5 +126,10 @@ function makeButton($id, $op, $isOrder = false) {
     <input $orderStr type=submit value="$name">
 </form>
 EOD;
+}
+
+function makeNewButton($id) {
+    $name = $_SESSION['menu'][$id]['name'];
+    return "<button id='button$id' class='unorder' onclick=addOrder($id) value='$name'>$name</button>\n";
 }
 ?>

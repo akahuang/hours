@@ -66,15 +66,16 @@ switch($_SESSION['page']) {
   <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
   <link rel="apple-touch-startup-image" href="image/hours.png" />
   <link rel="apple-touch-icon" href="image/icon.png" />
+  <script src="menu.js"></script>
 </head>
 <body>
 <div id=header>
     <div id=title>Hours Menu</div>
     <div id=menu>
-        <a href="?page=menu">菜單</a>
-        <a href="?page=list">列表</a>
-        <a href="?page=today">本日交易</a>
-        <a href="?page=favorite">常用清單</a>
+        <a href="index.php?page=menu">菜單</a>
+        <a href="index.php?page=list">列表</a>
+        <a href="index.php?page=today">本日交易</a>
+        <a href="index.php?page=favorite">常用清單</a>
     </div>
 </div>
 <?php echo $content; ?>

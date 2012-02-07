@@ -48,7 +48,7 @@ form {
     display:inline
 }
 
-input {
+input, button {
     font-family: Helvetica ;
     font-size: 0.8em;
     height: 30px;
@@ -58,4 +58,5 @@ input {
     background-color: #ffffff;
 }
 
-input.order { background-color: #ee00ee}
+.order { background-color: #ee00ee}
+.unorder {background-color: #ffffff}

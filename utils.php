@@ -1,11 +1,11 @@
 <?php
 function genName($trade) {
-    $arr = arrDecode($trade);
+    $arr = explode(':', $trade);
     $ret = '';
     $price = 0;
-    foreach ($arr as $id => $num) {
-        $ret .= "{$_SESSION['menu'][$id]['name']}*$num<br>";
-        $price += $_SESSION['menu'][$id]['price'] * $num;
+    foreach ($arr as $id) {
+        $ret .= "{$_SESSION['menu'][$id]['name']}<br>";
+        $price += $_SESSION['menu'][$id]['price'];
     }
     $ret .= "&nbsp;&nbsp;&nbsp;&nbsp;共 $price 元";
     return $ret;
