@@ -1,3 +1,13 @@
+window.onload = function() {
+    var a=document.getElementsByTagName("a");
+    for(var i=0;i<a.length;i++) {
+        a[i].onclick=function() {
+            window.location=this.getAttribute("href");
+            return false;
+        }
+    }
+};
+
 function addOrder(id) {
     var button = document.getElementById("button" + id);
     button.className = "order";

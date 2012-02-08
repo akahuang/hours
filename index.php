@@ -9,12 +9,6 @@ loadMenu();
 
 if (isset($_REQUEST['op'])) {
     switch ($_REQUEST['op']) {
-        case 'addOrder':
-            addOrder($_POST['id']);
-            break;
-        case 'delOrder':
-            delOrder($_POST['id']);
-            break;
         case 'order':
             order();
             break;
